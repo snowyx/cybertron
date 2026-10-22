@@ -1,0 +1,26 @@
+{
+  "id": "FEAT-004",
+  "type": "docs",
+  "description": "增补 .kiro/steering/视觉风格.md（design §26 清单的独立必做任务）：补家内景像素风、虫洞装置与进度条、宪章/宇宙图标与弹窗三节，核对第 8 节科技建筑/星球表面/科技舱体内景（§30）齐全，并显式登记内景小人 5 色为『不写死散色』遵守清单的唯一例外。因该 steering 为 inclusion:always、每轮前端实现自动注入，漏补会导致下一轮前端风格漂移，故独立成一个 feature。与代码特性独立，可在 FEAT-003 之后收尾（放最后便于照实际前端实现措辞对齐）。对应 impl-plan.md 步骤 13，设计 §26/§27。赛博坦宪章.md 不改。",
+  "status": "completed",
+  "steps": [
+    "读 .kiro/steering/视觉风格.md 现状（已有 1–8 节 + 遵守清单，§8 已覆盖 §30 科技建筑/星球表面/科技舱体内景）。",
+    "补『家内景像素风』一节：内景房间深底 --cyber-ink + 霓虹网格地板、家具 emoji 手绘（💻🌷🥤📖）零外部图片、内景小人 5 色（霓虹同系）异色 + 内联字符头像异脸 + 头顶名字小字霓虹描边、asleep 熄灯休眠(--dim-sleep)/isolated 告警橙(--alert-orange)静止/active 走动表现、返回全景按钮赛博霓虹描边常驻一角；明确内景 5 色与五个锁定主题变量并存不冲突。",
+    "补『虫洞装置与进度条』一节（可并入现第 5 节或新增）：霓虹虫洞环 + 进度条（青紫→晶体青渐变、宽度=progress/100）+ 轮次角标、建成辉光爆发动画（纯 Canvas/CSS 无外部资产）。",
+    "补『宪章/宇宙图标与弹窗』一节：两图标用内联 emoji/SVG（🛡️ 宪章、🌌 宇宙）+ 霓虹描边且视觉可区分；弹窗遮罩 + 居中卡片、青紫/晶体青霓虹描边、三种关闭方式；弹窗为覆盖层背景星城继续动。",
+    "核对第 8 节（科技建筑家 + 星球表面全景 + 科技舱体内景，对应 §30）要点齐全，如缺则补。",
+    "在遵守清单显式登记：内景小人专用 5 色（design §19.2 PALETTE）是『色值全部引用五个 CSS 变量、不写死散色』的唯一例外（仅用于区分内景多个小人、不参与全站主题），成文写入避免后续前端实现误删；确认 front-matter 仍为 inclusion:always；确认五个锁定色值 #0A0714/#A24BFF/#38F2E6/#FF8A3D/#2A2140 未改、未新增锁定色。"
+  ],
+  "acceptance_criteria": [
+    ".kiro/steering/视觉风格.md 含家内景像素风、虫洞装置与进度条、宪章/宇宙图标与弹窗三节 + 第 8 节科技建筑/星球表面/科技舱体内景，内容与 design §26/§30 一致。",
+    "内景小人 5 色作为『不写死散色』唯一例外在遵守清单成文登记。",
+    "front-matter 仍为 inclusion:always；五个锁定色值未改、未新增锁定色。",
+    "赛博坦宪章.md 未被改动。"
+  ],
+  "verification": [
+    "grep -nE '内景|虫洞|弹窗|图标|例外|inclusion: always' .kiro/steering/视觉风格.md （确认三节与例外登记与 front-matter 齐全）",
+    "人工通读 .kiro/steering/视觉风格.md 核对四项要点与 design §26 一致、五锁定色值未改"
+  ],
+  "blocked_reason": null,
+  "findings": "仅改一个文件：.kiro/steering/视觉风格.md（steering 收尾，零代码改动）。新增三节：第9节『家内景像素风』（9.1 内景房间/9.2 异色异脸+头顶名字小人 PALETTE=['#A24BFF','#38F2E6','#FF8A3D','#7CF25A','#4BA8FF'] + FACES=['◕','◉','⊙','◔','✦'] + VISIT_RELATION_TTL_MS=6000/9.3 active·asleep·isolated 三态/9.4 返回全景按钮）、第10节『虫洞装置与进度条』（霓虹环+进度条 progress/100 青紫→晶体青渐变+第N座轮次角标+建成辉光爆发、唯一新增下行帧 project_update、只读 store.snapshot.project）、第11节『宪章🛡️/宇宙🌌 图标与弹窗』（topbar 一角两图标、遮罩+居中卡片、✕/遮罩/Esc 三种关闭、两弹窗互斥、文案前端静态常量誊抄自权威文件、绝不 ws.send）。措辞已按实际前端实现对齐（pixel-figure.js/home-interior.js/wormhole.js/modals.js/index.html）。第8节（科技建筑家§30.2/星球表面全景§30.3/科技舱体内景§30.4）核对已齐全，未改。遵守清单：首条散色硬规则改指向末尾『内景小人配色唯一例外』登记块（新增成文登记：PALETTE 5 色为唯一例外，#7CF25A/#4BA8FF 属例外专有不得升为全站/新锁定色，后续前端实现不得当作违规散色删除）；并补内景小人/虫洞/弹窗三条自检项。硬约束全部守住：front-matter 仍 inclusion:always；五锁定色值 #0A0714/#A24BFF/#38F2E6/#FF8A3D/#2A2140 未改、未新增锁定色；.kiro/steering/赛博坦宪章.md 未动；无上行/下行帧改动；零外部依赖。验证：grep -nE '内景|虫洞|弹窗|图标|例外|inclusion: always' 命中三节+例外+front-matter；cd server && npm test = 57/57 全绿不回归。注意：整个 /Users/zhangji1641/codebase 下无 git 仓库（git rev-parse 均 fatal not a git repository），故无法 git commit；工作区非 repo，改动已直接落盘在 .kiro/steering/视觉风格.md。"
+}

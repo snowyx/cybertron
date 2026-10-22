@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "name": "源码改动跑冒烟测试",
+  "description": "保存前端或后端源码（app/js 下的 JS、server 下的 JS）时，自动跑后端 node --test 冒烟校验。依据 00-思路与决策.md 第五节『Hooks』与 design §12 可测性。",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "2-cybertron/app/js/**/*.js",
+      "2-cybertron/server/**/*.js"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "赛博坦的前端或后端源码刚被保存。请在 2-cybertron/ 下跑本地冒烟测试并汇报结果：进入 server 目录执行 `cd server && npm test`（Node 原生 node --test，覆盖 token 经济、宪章过滤、言行双轨降级与 WebSocket 集成）。说明：前端（app/js）为纯静态零构建、无独立测试，因此保存前端文件时同样跑后端冒烟作为回归兜底（后端契约若被改坏会被此集成测试捕获）。任一失败时，指出失败用例与最可能的成因，不要自动改代码。全部通过时回一句『冒烟通过』即可。"
+  }
+}

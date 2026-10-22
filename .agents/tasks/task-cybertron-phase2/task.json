@@ -1,0 +1,7 @@
+{
+  "task_id": "task-cybertron-phase2",
+  "task_description": "赛博坦（Cybertron）二期：实现六块惊艳升级（点房子进家内景、虫洞超时空传送器循环建造、公民互动剧情、破坏者隔离、赛博坦宪章图标弹窗、赛博坦宇宙图标弹窗）+ 赛博朋克科技建筑家/外星星球表面全景/科技舱体内景视觉升级。严格遵守：人类只能围观（上行帧白名单仅 hello/visitor_ask/ping，零新增游客写帧，唯一新增下行帧 project_update）；默认剧本轨（无 CYBERTRON_LLM_API_KEY）下六块全部开箱即玩、离线稳定、可录屏；零外部依赖零构建；端口 9527 后端/9528 前端 start.sh 一键启动不退化；五锁定色值不改；可纯函数化的新逻辑（advanceProject/enterIsolation/tickIsolation/修 recoverDay/matchInteraction）写成 node --test 覆盖的纯函数并补单测。承接已批准设计 design.md §18–§30（design-review.json verdict=APPROVED）与需求 requirements.md 需求 10–16。",
+  "status": "pending",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003", "FEAT-004"],
+  "blocked_reason": null
+}

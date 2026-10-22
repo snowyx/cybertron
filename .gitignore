@@ -1,0 +1,13 @@
+.env
+node_modules/
+.DS_Store
+
+# --- ltm-power ---
+ltm/store/*.jsonl
+ltm/runtime/*
+ltm/reports/*
+ltm/snapshots/*
+# --- /ltm-power ---
+
+# 演示录像（大文件，不入库）
+demo-recording/

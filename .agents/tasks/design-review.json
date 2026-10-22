@@ -1,0 +1,86 @@
+{
+  "verdict": "APPROVED",
+  "findings": [],
+  "resolvedFromPreviousRound": [
+    {
+      "id": "MEDIUM-1",
+      "severity": "MEDIUM",
+      "status": "RESOLVED",
+      "title": "虫洞「建成」默认不交互可达性缺核算，与二期验收 13 落差",
+      "where": "design.md §20.2 / §20.8 / §25 / §28",
+      "resolution": "§20.2 补『建成可演示性核算』说明块（与 §3.2 睡眠闭环同风格）：5公民×8次/天×BUILD_CHANCE0.35×BUILD_DELTA_AUTONOMY4≈56/天，到100约1.8天≈~130s(~2.2分钟)，落在≤2-3分钟演示窗口；BUILD_DELTA_AUTONOMY 从2调高到4(§25/§20.2/§29三处同值)；§20.8 新增集成断言『不发提问、调小TICK_MS、驱动≥3×TICKS_PER_DAY tick后断言至少一次 project_update{status:completed} 且随后收到 progress:0 重置帧、round+1』。requirements验收13为纯行为口径、与设计一致，采纳方案A未改需求数值。算式与所引常量自洽、可复核。"
+    },
+    {
+      "id": "MEDIUM-2",
+      "severity": "MEDIUM",
+      "status": "RESOLVED",
+      "title": "家内景访客关系过期以『1个tick周期』为基准、前端无可靠tick信号",
+      "where": "design.md §19.3 / §19.7 / §25",
+      "resolution": "改用前端墙钟常量 const VISIT_RELATION_TTL_MS=6000; 登记 expireAt=Date.now()+TTL，rAF 循环每帧比对 Date.now()>=expireAt 到点移除，明确不依赖 tick 下行帧(并给出一期tick帧可选、main.js未注册ws.on('tick')的理由)。§19.3/§19.7/§25 三处取值与机制一致，二义消除。采纳推荐的墙钟方案。"
+    },
+    {
+      "id": "NIT-1",
+      "severity": "NIT",
+      "status": "RESOLVED",
+      "title": "讨论完成触发建成的两帧次序未在该路径复述",
+      "where": "design.md §20.2 来源2",
+      "resolution": "§20.2 来源2 补『两帧次序一律一致(NIT-1锁定)』：无论出力还是讨论完成触发，completedNow===true 一律走同一『先 project_update{completed} 后 project_update{progress:0}』两帧；讨论路径下这两帧在 resolution 帧之后广播(先resolution→建成帧→归零帧)。与§20.3呼应。"
+    },
+    {
+      "id": "NIT-2",
+      "severity": "NIT",
+      "status": "RESOLVED",
+      "title": "内景气泡/动作语料唯一宿主文件未锁",
+      "where": "design.md §19.4 / §25",
+      "resolution": "§19.4 锁定唯一宿主为 home-interior.js 内 INTERIOR_SCRIPT 常量(按persona分组、每人格≥4条、动作集枚举walk/type/water/drink/read/idle同住该文件)，明确不另设独立模块；§25 据此标注宿主为 home-interior.js。"
+    },
+    {
+      "id": "NIT-3",
+      "severity": "NIT",
+      "status": "RESOLVED",
+      "title": "advanceProject 跨100溢出举例与增量来源对不上",
+      "where": "design.md §20.7 / §20.8",
+      "resolution": "§20.7 举例改为与来源一致：出力溢出用 99+BUILD_DELTA_AUTONOMY(4)=103、讨论溢出另举 96+BUILD_DELTA_RESOLUTION(8)=104，并注明单次出力恒+4、+8仅为讨论增量；§20.8 单测例同步用+4/+8。"
+    },
+    {
+      "id": "NIT-4",
+      "severity": "NIT",
+      "status": "RESOLVED",
+      "title": "隔离到期恢复两帧次序未锁",
+      "where": "design.md §21.3 / §21.7",
+      "resolution": "§21.3 到期分支锁定次序(与进入侧对称)：先广播 agent_update{status:active}(家先亮灯)、再广播『{name}结束隔离』安全叙事 agent_event(入recentEvents)；§21.7 集成断言按此顺序断言。"
+    }
+  ],
+  "visualUpgradeChecks": [
+    "家=赛博朋克科技建筑(穹顶/舱体/能量塔/天线桅杆/发光管线/机械支架/霓虹装甲、非普通小房子、variant=hashId(id)%5五剪影)已写进 design §30.2 / requirements 需求16.1 / steering §8.1",
+    "全景背景=外星星球表面(深空星空+星点+星云+远处行星 / 远山脊·环形山 / 外星地表+陨石坑+霓虹矿脉)已写进 design §30.3 / requirements 需求16.3 / steering §8.2",
+    "家内景呼应科技舱体内部(舱壁网格+发光管线+观察舷窗+全息面板+金属台面家具、非普通民居)已写进 design §30.4 / requirements 需求16.4 / steering §8.3",
+    "亮灯(active青紫/晶体青)/熄灯(asleep暗紫--dim-sleep)/隔离(isolated告警橙--alert-orange)三态语义仍可辨识、由后端status驱动前端只渲染(design §30.2 / §21.5 / steering §8.1 一致)",
+    "纯Canvas/DOM/CSS手绘+内联emoji/SVG、零外部图片/字体/库、离线可跑、固定种子rng保证一致不闪烁(design §30.1/§30.6 / steering §8.4)",
+    "五个锁定色值 #0A0714/#A24BFF/#38F2E6/#FF8A3D/#2A2140 未改、不引入新锁定色、不新增散色例外(内景小人5色仍是唯一例外)(steering §1+遵守清单 / design §30.1/§30.6)",
+    "纯表现层零新增帧：只改town-map.js/home-interior.js/theme.css怎么画，world_state/agent_update/agent_event/project_update帧形状不变，家坐标与作息/隔离仍后端单一事实源(design §30.5 / requirements 需求16头注 / steering §8.4)"
+  ],
+  "hardConstraintChecks": [
+    "上行帧白名单仍仅 hello/visitor_ask/ping：§4.2『仅三种白名单』、§24.1重申、§30.5重申；二期六块无一新增上行写帧",
+    "信封与首帧契约不变：§24.1 首帧必须hello→hello_ok、default静默丢弃；§24.4 所有二期帧(含project_update)遵守{type,data,ts}复用frame()",
+    "不新增游客写帧：唯一新增下行帧 project_update；agent_update仅枚举扩isolated(无字段增删)、agent_event仅可选字段增补(向后兼容)、world_state加只读project字段——全为下行",
+    "默认剧本轨可完整演示六块：§28逐块✓；虫洞建成由§20.2核算+§20.8断言、隔离由§21.2 tick18确定demo钩子、互动由§22.2内置语料、内景由§19.4内置INTERIOR_SCRIPT、弹窗由§23.2前端静态、视觉由§30纯手绘",
+    "零依赖零构建：§18前言+§30.6 前端纯原生ESM零构建、后端仅依赖ws、新视觉元素零外部图片/字体/库、离线可跑",
+    "端口 9527(后端)/9528(前端)：§14 PORT=9527、§18前言端口沿用9527/9528"
+  ],
+  "verifiedAssumptions": [
+    "上一轮2个MEDIUM+4个NIT修复均落在design既有章节且彼此印证不矛盾：BUILD_DELTA_AUTONOMY=4在§20.2/§25/§29三处同值；VISIT_RELATION_TTL_MS=6000在§19.3/§19.7/§25三处同值；+4/+8在§20.7边界与§20.8单测一致",
+    "MEDIUM-1核算算式与所引常量(ENERGY_MAX48/COST.autonomy6/BUILD_CHANCE0.35/BUILD_DELTA_AUTONOMY4/TICKS_PER_DAY24/TICK_MS3000)自洽、~130s≈2.2分钟可复核落在声明窗口内；§20.8断言tick上限≥3×TICKS_PER_DAY相对1.8天期望留足余量",
+    "五个锁定色值在steering §1与遵守清单原样保留、视觉升级未改任一色值未新增锁定色未新增散色例外(内景小人5色仍唯一例外三处登记一致)",
+    "视觉升级纯前端表现层：design §30.5/requirements需求16头注/steering §8.4三处一致声明零新增上行下行帧不改后端不改共享事实",
+    "上行白名单仅三种、project_update唯一新增下行帧、agent_update仅枚举扩isolated、agent_event仅可选字段增补——协议扰动最小、围观护栏零稀释",
+    "沿用上一轮已读源码核实项(本轮相关设计未改动继续成立):recoverDay需显式跳过isolated、agent_update四字段patch保留name/persona/home、makeSnapshot直出status、visit回应需锁toAgentId三者一致、_pendingReplies可被_pendingInteraction收编、sanitizeOutput先过滤后截断、charter六类词表齐全、端口9527/9528、零依赖零构建、三组纯函数可扩展、两弹窗纯前端不新增帧"
+  ],
+  "unverifiedAssumptions": [
+    "node:test+ws集成测试在目标环境可运行、真模型接口为OpenAI Chat Completions风格——失败即降级剧本、demo走剧本，不阻塞，保留为实现期验证项",
+    "虫洞/隔离/互动真模型轨提示词产出质量——真模型为可选增强、失败回退剧本机制已验证存在，非设计阶段可核实，不阻塞",
+    "figureStyle(id)/家variant=hashId(id)%5对5个固定id不保证两两异色异脸异剪影(PALETTE/FACES各5+位移哈希可能撞)——属表现层不影响共享事实，实现期可调(改哈希或按配置序定序分配)，不阻塞但宜留意需求10.3五人同框可辨识度",
+    "MEDIUM-1核算中demo隔离钩子固定tick18隔离ECHO的8拍内ECHO不出力会使单天出力略低于40上限理论值——核算已以保守上限基准、§20.8断言又留≥3×TICKS_PER_DAY余量，不影响『有界时间必现建成』结论，不阻塞"
+  ],
+  "reviewDoc": "/Users/zhangji1641/codebase/kiro-idea/2-cybertron/.agents/tasks/design-review.md"
+}

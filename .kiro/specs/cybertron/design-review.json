@@ -1,0 +1,54 @@
+{
+  "verdict": "CHANGES_REQUESTED",
+  "reviewDoc": "/Users/zhangji1641/codebase/kiro-idea/2-cybertron/.kiro/specs/cybertron/design-review.md",
+  "round": 4,
+  "findings": [
+    {
+      "id": "MEDIUM-1",
+      "severity": "MEDIUM",
+      "title": "recoverDay 函数签名在 §9 与 §3.2 两处互相矛盾",
+      "location": "design §9 定义 vs §3.2 第2步调用 vs tasks 任务3",
+      "problem": "§9 定义为纯函数 recoverDay(agents) 返回新状态数组；§3.2 调用为 recoverDay(world) 并被描述为就地恢复能量/唤醒/设 dayStartTick/广播。入参(agents vs world)与是否纯函数/是否就地改写冲突，而该函数是 NFR-5 要求单测覆盖的 token 经济核心函数。tasks 任务3 未消歧。",
+      "fix": "方案A(推荐)：锁定 recoverDay(agents)→受影响 agent 新状态数组的纯函数，只算能量恢复与 asleep→active，不碰 dayStartTick、不广播；dayStartTick 赋值与 agent_update 广播由 tick()/town-server.js 负责。方案B：明确 recoverDay(world) 就地改写并返回受影响列表，同时在 §9 收回其纯函数可穷举单测措辞。无论哪种，同步修正 §9 定义、§3.2 调用、tasks 任务3、§12 单测描述四处一致。"
+    },
+    {
+      "id": "NIT-1",
+      "severity": "NIT",
+      "title": "讨论中全员睡着预判与排队后取用的发言资格判据不一致",
+      "location": "design §5.1 第4步 vs 第5步",
+      "problem": "第4步预判只看 status==='active'，第5步取用要求 status==='active' && energy>=COST.speak。全员 active 但都 energy<COST.speak 时，问题先 ask_queued 稍后却 ask_rejected{NO_AWAKE_AGENT}，与排队更友好的意图略出入。设计已称其为轻量预判、窗口短暂，不阻塞。",
+      "fix": "将第4步预判判据对齐第5步(status==='active' && energy>=COST.speak)直接拒不入队；或在第4步显式注明此为有意的粗筛、极端低能量档可能排队后仍 NO_AWAKE。"
+    },
+    {
+      "id": "NIT-2",
+      "severity": "NIT",
+      "title": "spoken.length===0 时仍结算决议的行为未显式定义",
+      "location": "design §5.4 / §11 / §6.2 summarizeResolution",
+      "problem": "§5.2 允许逐个 speaker 被跳过；全部跳过时 spoken 为空，summarizeResolution([]) 产出的决议内容未定义，与需求3.4『均已发言→产出决议』语义真空。经分析当前常量下 speaker 入选后能量不被扣减，此分支实际不可达，故降为 NIT。",
+      "fix": "§11 补一条防御性边界：spoken.length===0 时不产出 resolution、直接 phase='idle' 并处理 askQueue(或固定占位决议文案，二选一写死)，并明确 summarizeResolution 对空 spoken 的返回约定。"
+    },
+    {
+      "id": "NIT-3",
+      "severity": "NIT",
+      "title": "README『一条命令跑通』与需先 npm install 的落差未在 spec 层对齐",
+      "location": "tasks 任务2 / 任务12 / 用户硬约束『先本地部署看效果』",
+      "problem": "后端依赖 ws 首次运行必须 npm install，但多处宣称『一条命令跑通/点开即看』，落差未点明；用户明确要先本地部署看效果，影响第一印象。不影响实现正确性。",
+      "fix": "tasks 任务12 Verify 明确 README 给出首次 `cd server && npm install && npm start`、之后 `npm start` 两档，并明确前端打开方式(file:// 还是静态服务器，确认 WebSocket 不被跨源/mixed-content 挡；建议给 `npx serve app` 或 Node 静态托管指引)。"
+    }
+  ],
+  "verifiedAssumptions": [
+    "参考作品 1-kickbadguy 存在；已读 room-server.js 核实 frame(type,data)={type,data,ts}、makeSnapshot 不外泄 ws 句柄、hello→hello_ok 首帧契约、hello前业务帧与未知 type 均 BAD_PAYLOAD 静默忽略、singleSend 以 WebSocket.OPEN 守卫——design §1/§4.0/§4.1/§4.2/§8.4 复用与结构性不可操纵断言成立",
+    "技术栈可行：1-kickbadguy/server/package.json 为 type:module、ws 固定版本、node --test、engines node>=18，与 design §0/§13、tasks 任务2 一致",
+    "五件套在 requirements 均有编号可测验收标准(需求1-5/9 + 验收1-11)，design 对每件均有具体方案(§2/§3/§5/§9/§8)",
+    "LLM 双轨优雅降级明确：环境变量名锁定 CYBERTRON_LLM_API_KEY(§7.1/§14)，无 key→mode='script'/llm=null/不发请求/不报错，真模型失败 try/catch 全回退剧本(§7.3)，.env.example 仅 key 名无值、.gitignore 忽略 .env",
+    "前后端消息帧契约具体到可直接实现：信封 {type,data,ts}、上行白名单三帧、下行帧字段与触发时机(含 ask_queued 成功帧与 ask_rejected.reason 五值枚举拆分)、world_state 快照形状、agent_update 部分字段 patch 合并语义、recentEvents 的 pushRecent 写入/FIFO 淘汰规则均写死(§4)",
+    "token 经济与宪章过滤被设计成可做纯函数单测：§9 applyCost/reward(recoverDay 见 MEDIUM-1) 无 I/O 返回新值、常量集中 §14；§8.2 charterCheck→{ok,category} 无副作用；§12/tasks 任务7/8 给出对应单测与集成断言",
+    "HIGH-1 常量自洽性复核通过：ENERGY_MAX=48/COST.autonomy=6/BEHAVIOR_COOLDOWN_TICKS=1/AUTONOMY_CHANCE=0.9/TICKS_PER_DAY=24 下纯自主一天内必耗尽(21.6>8)、第24tick 恢复、闭环≈72s 默认不交互可见，与验收6/需求4.5 一致",
+    "NFR-2 时延核算成立：DISCUSS_STEP_MS=1500/MAX_SPEAKERS=5/末步并入结算，最坏 7.5s≤10s",
+    "Steering 与 Hook 自洽：宪章 steering 上行白名单/六类词表/双轨一致过滤对应 design §4.2/§8；视觉 steering 五锁定色值/家亮熄灯语义/决议高亮卡片对应 design §10 与需求1、3.4；Hook 匹配 app/js 与 server 统一跑后端 npm test 并说明前端无独立测试"
+  ],
+  "unverifiedAssumptions": [
+    "真模型接口为 OpenAI Chat Completions 风格(§7.3 默认 base_url .../v1、model gpt-4o-mini)——未对真实端点核实。不阻塞：无 key 不进该轨，有 key 但接口不符时 try/catch 回退剧本，demo 走剧本不受影响",
+    "node:test + ws 客户端集成测试在目标机可运行；本轮未重新执行 node --version 核实(上一轮记为 v26.0.0)。不阻塞：实现期 npm test 自然暴露，与参考作品同栈"
+  ]
+}

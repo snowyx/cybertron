@@ -1,0 +1,32 @@
+{
+  "id": "FEAT-001",
+  "type": "feat",
+  "description": "后端二期可测纯函数与语料基础（虫洞工程模型 + advanceProject、隔离状态机 enterIsolation/tickIsolation + 修 recoverDay 跳过 isolated、互动配对 matchInteraction + 工程/互动语料），并补齐对应 node --test 单测。这是二期一切装配的基础，独立可测、不触 I/O。对应 impl-plan.md 步骤 1、2、6，设计 §20.1/§20.3、§21.1/§21.3/§21.6、§22.2/§22.3、§25。",
+  "status": "completed",
+  "steps": [
+    "改 server/world.js：createWorld 初始化 world.project={progress:0,round:1,status:'building'}；每个 agent 运行时新增 isolatedUntilTick:0；新增常量 BUILD_DELTA_AUTONOMY=4、BUILD_DELTA_RESOLUTION=8、PROJECT_MAX=100、ISOLATION_TICKS=8。",
+    "server/world.js 新增纯函数 advanceProject(project,delta)：raw=project.progress+delta；raw>=100 返回 {progress:0,round:project.round+1,status:'building',completedNow:true,completedRound:project.round}，否则返回 {progress:raw,round:project.round,status:'building',completedNow:false,completedRound:null}（不取模、不留溢出余量）。",
+    "server/world.js 新增纯函数 enterIsolation(agent,nowTick)→{status:'isolated',isolatedUntilTick:nowTick+ISOLATION_TICKS}；tickIsolation(agent,nowTick)→若 agent.status==='isolated' && nowTick>=agent.isolatedUntilTick 返回 {status:'active',isolatedUntilTick:0,releasedNow:true}，否则 {releasedNow:false}。",
+    "server/world.js 修 recoverDay：遍历开头加 if (agent.status==='isolated') continue;（显式跳过隔离者，既不恢复能量也不改 status/isolatedUntilTick——现有代码会因 needEnergy 把 isolated 误置 active，必须改，design §21.6）。",
+    "改 server/behavior.js：新增工程出力语料（跨人格通用模板，如「{name} 焊接了虫洞环的第 {seg} 节」「{name} 校准了超时空锚点」，seg 由进度派生，供 town-server 出力分支取用）。",
+    "server/behavior.js 新增 INTERACTIONS 配对语料常量（≥4 类：gossip_rebut/poem_praise/crystal_haggle/visit_reply，每类 {initiate:[≥2 条],reply:[≥2 条]}，口吻与 §6.3 五人格一致）。",
+    "server/behavior.js 新增纯函数 matchInteraction(type,candidates,corpus,rng=Math.random)：candidates 空 / corpus[type] 缺 / corpus[type].reply 池空 → 返回 null；否则按 rng 从 candidates 选 responderId、从 corpus[type].reply 选 replyText，返回 {responderId,replyText}（无 I/O、rng 可注入）。",
+    "server/behavior.js 把 pickOtherName(agent,world) 改为返回 {name,id}（供 generateEvent 对 kind==='visit' 产出 toAgentId，保证文案点名者=toAgentId，§19.3 NIT-2）；更新 render() 等内部调用点以适配（取 .name）。",
+    "改 server/world.test.js：补 advanceProject（{10,1,building}+4→{14,1,building,completedNow:false}；{96,1}+4→{0,2,building,completedNow:true,completedRound:1}；跨100 {96,1}+8 与 {99,1}+4 均建成重置不取模；连续两次建成 round===3）、enterIsolation（active/asleep→isolated 且 isolatedUntilTick===nowTick+ISOLATION_TICKS）、tickIsolation（未到期 releasedNow:false 不改状态、到期 {active,0,releasedNow:true}、非 isolated releasedNow:false）、recoverDay 跳过 isolated（energy<energyMax 的 isolated agent 不入 affected；对照组 energy<energyMax 的 active 与一个 asleep 仍入 affected）单测。",
+    "改 server/behavior.test.js：补 matchInteraction（固定 rng 确定选出 responderId/replyText、candidates 空→null、未知 type→null、多候选 rng 变化覆盖不同选择）与 INTERACTIONS 四类且每类 initiate/reply≥2 条 单测。"
+  ],
+  "acceptance_criteria": [
+    "node --check server/world.js 与 node --check server/behavior.js 均通过。",
+    "cd server && npm test 全绿：一期 34 用例不回归，新增 advanceProject/enterIsolation/tickIsolation/recoverDay-跳过-isolated/matchInteraction/INTERACTIONS 单测全部通过。",
+    "createWorld() 返回的 world.project 为 {progress:0,round:1,status:'building'}，每个 agent 有 isolatedUntilTick:0。",
+    "advanceProject 对 raw>=100 恒返回 progress:0 + round+1 + completedNow:true + completedRound=旧 round；recoverDay 对 isolated agent 不改任何字段。",
+    "matchInteraction 注入固定 rng 时输出确定，边界（空候选/未知 type/空池）返回 null。"
+  ],
+  "verification": [
+    "node --check server/world.js",
+    "node --check server/behavior.js",
+    "cd server && npm test"
+  ],
+  "blocked_reason": null,
+  "findings": "已完成。测试：npm test 50 用例全绿（一期 34 + 二期新增 16），无回归。\n\nworld.js 新增导出常量：BUILD_DELTA_AUTONOMY=4、BUILD_DELTA_RESOLUTION=8、PROJECT_MAX=100、ISOLATION_TICKS=8。\nworld.js 新增导出纯函数：\n- advanceProject(project,delta) → {progress,round,status:'building',completedNow,completedRound}。raw>=100 归零 round+1 completedNow:true completedRound=旧round；否则累加 completedNow:false completedRound:null。不取模、不留余量。\n- enterIsolation(agent,nowTick) → {status:'isolated',isolatedUntilTick:nowTick+ISOLATION_TICKS}（补丁对象，不改入参）。\n- tickIsolation(agent,nowTick) → isolated 且到期 {status:'active',isolatedUntilTick:0,releasedNow:true}，否则 {releasedNow:false}。\n- recoverDay 已加 `if (agent.status==='isolated') continue;`：隔离者不入 affected、不改任何字段。\ncreateWorld 变更：world 新增 project={progress:0,round:1,status:'building'}；每个 agent 新增 isolatedUntilTick:0。status 新增取值 'isolated'（取值域：active/asleep/isolated）。\n\nbehavior.js 新增导出：\n- BUILD_LINES（工程出力模板数组，占位 {name}/{seg}）。\n- renderBuildLine(name,progress,choose=pick)：seg=floor(progress/10)+1，供 town-server 出力分支取用。\n- INTERACTIONS 常量：4 类 gossip_rebut/poem_praise/crystal_haggle/visit_reply，每类 {initiate:[≥2],reply:[≥2]}。\n- matchInteraction(type,candidates,corpus=INTERACTIONS,rng=Math.random) → {responderId,replyText} 或 null（空候选/未知type/空reply池→null）。candidates 元素可为 {id} 对象或字符串 id。\nbehavior.js 内部变更：pickOtherName 现返回 {name,id}（原返回 name 字符串，为内部函数无外部调用方）；scriptEvent 对 kind==='visit' 额外返回 toAgentId（=点名的 other.id），保证文案点名者=toAgentId（§19.3 NIT-2）。非 visit 事件形状不变 {kind,text}。generateEvent 透传该形状。\n\n下行帧方面：本 FEAT 未新增任何帧（帧装配在后续 FEAT 的 town-server）。generateEvent 的 visit 事件新增 toAgentId 字段，后续 town-server 组装 project_update / interaction / visit 事件帧时可直接取用。"
+}

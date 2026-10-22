@@ -1,0 +1,138 @@
+.agents/tasks/design-review.json
+  h_57a4b15c8feaaa 1-86
+.agents/tasks/design-review.md
+  h_57a4b15c8feaaa 1-99
+.agents/tasks/impl-plan.md
+  h_57a4b15c8feaaa 1-118
+.agents/tasks/rename-review.json
+  h_57a4b15c8feaaa 1-18
+.agents/tasks/rename-review.md
+  h_57a4b15c8feaaa 1-103
+.agents/tasks/task-cybertron-phase2/context.json
+  h_57a4b15c8feaaa 1-41
+.agents/tasks/task-cybertron-phase2/features/FEAT-001.json
+  h_57a4b15c8feaaa 1-32
+.agents/tasks/task-cybertron-phase2/features/FEAT-002.json
+  h_57a4b15c8feaaa 1-30
+.agents/tasks/task-cybertron-phase2/features/FEAT-003.json
+  h_57a4b15c8feaaa 1-34
+.agents/tasks/task-cybertron-phase2/features/FEAT-004.json
+  h_57a4b15c8feaaa 1-26
+.agents/tasks/task-cybertron-phase2/task.json
+  h_57a4b15c8feaaa 1-7
+.env.example
+  h_57a4b15c8feaaa 1-3
+.gitignore
+  h_57a4b15c8feaaa 1-13
+.kiro/hooks/源码改动跑冒烟测试.kiro.hook
+  h_57a4b15c8feaaa 1-17
+.kiro/specs/cybertron/code-review.json
+  h_57a4b15c8feaaa 1-5
+.kiro/specs/cybertron/code-review.md
+  h_57a4b15c8feaaa 1-77
+.kiro/specs/cybertron/design-review.json
+  h_57a4b15c8feaaa 1-54
+.kiro/specs/cybertron/design-review.md
+  h_57a4b15c8feaaa 1-104
+.kiro/specs/cybertron/design.md
+  h_57a4b15c8feaaa 1-1389
+.kiro/specs/cybertron/impl-plan.md
+  h_57a4b15c8feaaa 1-109
+.kiro/specs/cybertron/requirements.md
+  h_57a4b15c8feaaa 1-310
+.kiro/specs/cybertron/tasks.md
+  h_57a4b15c8feaaa 1-180
+.kiro/specs/cybertron/verification-note.md
+  h_57a4b15c8feaaa 1-159
+.kiro/steering/ltm-memory-format.md
+  h_57a4b15c8feaaa 1-21
+.kiro/steering/ltm-operations.md
+  h_57a4b15c8feaaa 1-40
+.kiro/steering/视觉风格.md
+  h_57a4b15c8feaaa 1-187
+.kiro/steering/赛博坦宪章.md
+  h_57a4b15c8feaaa 1-51
+00-思路与决策.md
+  h_57a4b15c8feaaa 1-148
+README.md
+  h_57a4b15c8feaaa 1-207
+app/css/theme.css
+  h_57a4b15c8feaaa 1-1140
+app/index.html
+  h_57a4b15c8feaaa 1-65
+app/js/ask-box.js
+  h_57a4b15c8feaaa 1-52
+app/js/config.js
+  h_57a4b15c8feaaa 1-14
+app/js/event-feed.js
+  h_57a4b15c8feaaa 1-70
+app/js/home-interior.js
+  h_57a4b15c8feaaa 1-400
+app/js/main.js
+  h_57a4b15c8feaaa 1-141
+app/js/modals.js
+  h_57a4b15c8feaaa 1-151
+app/js/onboarding.js
+  h_57a4b15c8feaaa 1-176
+app/js/pixel-figure.js
+  h_57a4b15c8feaaa 1-138
+app/js/store.js
+  h_57a4b15c8feaaa 1-110
+app/js/town-map.js
+  h_57a4b15c8feaaa 1-486
+app/js/wormhole.js
+  h_57a4b15c8feaaa 1-203
+app/js/ws-client.js
+  h_57a4b15c8feaaa 1-124
+general_spec.md
+  h_57a4b15c8feaaa 1-49
+ltm/README.md
+  h_57a4b15c8feaaa 1-23
+ltm/bin/ltm.py
+  h_57a4b15c8feaaa 1-1037
+ltm/config.json
+  h_57a4b15c8feaaa 1-13
+ltm/manifest.json
+  h_57a4b15c8feaaa 1-17
+record-demo.mjs
+  h_57a4b15c8feaaa 1-95
+server/behavior.js
+  h_57a4b15c8feaaa 1-286
+server/behavior.test.js
+  h_57a4b15c8feaaa 1-133
+server/charter.js
+  h_57a4b15c8feaaa 1-47
+server/charter.test.js
+  h_57a4b15c8feaaa 1-51
+server/package-lock.json
+  h_57a4b15c8feaaa 1-39
+server/package.json
+  h_57a4b15c8feaaa 1-18
+server/static-server.js
+  h_57a4b15c8feaaa 1-49
+server/town-server.integration.test.js
+  h_57a4b15c8feaaa 1-591
+server/town-server.js
+  h_57a4b15c8feaaa 1-813
+server/world.js
+  h_57a4b15c8feaaa 1-206
+server/world.test.js
+  h_57a4b15c8feaaa 1-210
+start.sh
+  h_57a4b15c8feaaa 1-114
+接入设计-agent-onboarding.md
+  h_57a4b15c8feaaa 1-133
+提交材料-报名文案与视频脚本.md
+  h_57a4b15c8feaaa 1-115
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "b5d86cf1b9382c33bbc27878180d4ec71f60b20e",
+  "prompts": {},
+  "humans": {
+    "h_57a4b15c8feaaa": {
+      "author": "zhangji1641 <zhangji1641@jd.com>"
+    }
+  }
+}

@@ -1,5 +1,12 @@
 .env
 node_modules/
+dist/
+dist-server/
+.cache/
+graphify-out/
+data/
+test-results/
+playwright-report/
 .DS_Store
 
 # --- ltm-power ---

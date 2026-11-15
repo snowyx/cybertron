@@ -4,10 +4,11 @@
 //   ask_rejected 视为失败（渲染 message、说明本次无决议）。两类均不改共享状态。
 
 export class AskBox {
-  constructor({ inputEl, sendEl, hintEl }, ws) {
+  constructor({ inputEl, sendEl, hintEl, countEl }, ws) {
     this.input = inputEl;
     this.send = sendEl;
     this.hint = hintEl;
+    this.count = countEl;
     this.ws = ws;
 
     this.input.addEventListener('input', () => this._refresh());
@@ -21,10 +22,22 @@ export class AskBox {
   _refresh() {
     const v = this.input.value.trim();
     this.send.disabled = v.length === 0 || v.length > 200;
+    if (this.count) {
+      this.count.textContent = `${v.length}/200`;
+      this.count.classList.toggle('warn', v.length > 180);
+    }
   }
 
   _submit() {
-    const v = this.input.value.trim();
+    this.submitQuestion(this.input.value.trim());
+  }
+
+  /**
+   * 对外提交入口（快捷问题 chip 也走这里）。
+   * @param {string} question
+   */
+  submitQuestion(question) {
+    const v = String(question || '').trim();
     if (v.length === 0 || v.length > 200) return;
     this.ws.send('visitor_ask', { question: v });
     this.input.value = '';

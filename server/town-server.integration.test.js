@@ -248,9 +248,9 @@ test('recentEvents 写入 / 淘汰：条数 ≤30、只含事件 kind（MEDIUM-2
 // ── 真实 ws 往返（首帧契约 / 越权帧）─────────────────────────────────────
 
 test('真实 ws：hello → hello_ok → world_state；未知帧不断连不改状态', async () => {
-  const { wss, world, stop } = startServer(0);
-  await new Promise((r) => wss.on('listening', r));
-  const port = wss.address().port;
+  const { httpServer, world, stop } = startServer({ port: 0, host: "127.0.0.1" });
+  await new Promise((r) => httpServer.on('listening', r));
+  const port = httpServer.address().port;
 
   const ws = new WebSocket(`ws://127.0.0.1:${port}`);
   const frames = [];
@@ -289,9 +289,9 @@ test('真实 ws：hello → hello_ok → world_state；未知帧不断连不改�
 });
 
 test('真实 ws：hello 前的业务帧被静默忽略', async () => {
-  const { wss, stop } = startServer(0);
-  await new Promise((r) => wss.on('listening', r));
-  const port = wss.address().port;
+  const { httpServer, stop } = startServer({ port: 0, host: "127.0.0.1" });
+  await new Promise((r) => httpServer.on('listening', r));
+  const port = httpServer.address().port;
   const ws = new WebSocket(`ws://127.0.0.1:${port}`);
   const frames = [];
   ws.on('message', (d) => frames.push(JSON.parse(d.toString())));
@@ -554,9 +554,9 @@ test('二期·互动边界：候选全隔离/睡着 → 无回应帧但事件流
 });
 
 test('二期·越权帧：真实 ws 发 move_agent 等未知帧 → 无状态变化、连接不断', async () => {
-  const { wss, world, stop } = startServer(0);
-  await new Promise((r) => wss.on('listening', r));
-  const port = wss.address().port;
+  const { httpServer, world, stop } = startServer({ port: 0, host: "127.0.0.1" });
+  await new Promise((r) => httpServer.on('listening', r));
+  const port = httpServer.address().port;
 
   const ws = new WebSocket(`ws://127.0.0.1:${port}`);
   const frames = [];

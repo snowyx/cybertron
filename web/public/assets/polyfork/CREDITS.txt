@@ -1,0 +1,67 @@
+Credit lines for CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
+
+If you share or re-host one of these mesh files under CC BY, keep its line with it
+(the same line covers that model's .fbx, .usdz, .usda and .obj). Under the Polyfork
+licence no credit is needed. LICENSE.txt has both.
+
+arc-street-lamp.glb  Arc Street Lamp by Polyfork (https://polyfork.dev/asset/arc-street-lamp-bd9eab), CC BY 4.0
+articulated-transit-bus.glb  Articulated Transit Bus by Polyfork (https://polyfork.dev/asset/articulated-transit-bus-6be725), CC BY 4.0
+balustrade-railing-run.glb  Balustrade Railing Run by Polyfork (https://polyfork.dev/asset/balustrade-railing-run-2be0d5), CC BY 4.0
+boundary-fence-run.glb  Boundary Fence Run by Polyfork (https://polyfork.dev/asset/boundary-fence-run-ed6782), CC BY 4.0
+boxy-delivery-van.glb  Boxy Delivery Van by Polyfork (https://polyfork.dev/asset/boxy-delivery-van-a3ceae), CC BY 4.0
+capsule-residential-tower.glb  Capsule Residential Tower by Polyfork (https://polyfork.dev/asset/capsule-residential-tower-80300b), CC BY 4.0
+city-commuter.glb  City Commuter by Polyfork (https://polyfork.dev/asset/city-commuter-52a53f), CC BY 4.0
+civic-dome-pavilion.glb  Civic Dome Pavilion by Polyfork (https://polyfork.dev/asset/civic-dome-pavilion-97ea07), CC BY 4.0
+civic-security-officer.glb  Civic Security Officer by Polyfork (https://polyfork.dev/asset/civic-security-officer-30b6fb), CC BY 4.0
+commuter-hover-pod.glb  Commuter Hover Pod by Polyfork (https://polyfork.dev/asset/commuter-hover-pod-5b6307), CC BY 4.0
+composite-plaza-tile.glb  Composite Plaza Tile by Polyfork (https://polyfork.dev/asset/composite-plaza-tile-618067), CC BY 4.0
+composite-supply-crate.glb  Composite Supply Crate by Polyfork (https://polyfork.dev/asset/composite-supply-crate-1547cb), CC BY 4.0
+coolant-cell-canister.glb  Coolant Cell Canister by Polyfork (https://polyfork.dev/asset/coolant-cell-canister-0ee57e), CC BY 4.0
+crossing-and-pad-decal.glb  Crossing And Pad Decal by Polyfork (https://polyfork.dev/asset/crossing-and-pad-decal-0bab8c), CC BY 4.0
+eight-wheel-industrial-hauler.glb  Eight-Wheel Industrial Hauler by Polyfork (https://polyfork.dev/asset/eight-wheel-industrial-hauler-4dc3d7), CC BY 4.0
+elevated-landing-pad.glb  Elevated Landing Pad by Polyfork (https://polyfork.dev/asset/elevated-landing-pad-7279fb), CC BY 4.0
+escalator-flight.glb  Escalator Flight by Polyfork (https://polyfork.dev/asset/escalator-flight-139f86), CC BY 4.0
+facade-wall-module.glb  Facade Wall Module by Polyfork (https://polyfork.dev/asset/facade-wall-module-31f5ab), CC BY 4.0
+faceted-shrub-blob.glb  Faceted Shrub Blob by Polyfork (https://polyfork.dev/asset/faceted-shrub-blob-04ce6b), CC BY 4.0
+floating-capsule-bench.glb  Floating Capsule Bench by Polyfork (https://polyfork.dev/asset/floating-capsule-bench-f6eb72), CC BY 4.0
+glazed-curtain-screen.glb  Glazed Curtain Screen by Polyfork (https://polyfork.dev/asset/glazed-curtain-screen-5bad70), CC BY 4.0
+green-facade-panel.glb  Green Facade Panel by Polyfork (https://polyfork.dev/asset/green-facade-panel-e4c10c), CC BY 4.0
+guideway-rail-shuttle.glb  Guideway Rail Shuttle by Polyfork (https://polyfork.dev/asset/guideway-rail-shuttle-3d67d7), CC BY 4.0
+hauler-cargo-trailer.glb  Hauler Cargo Trailer by Polyfork (https://polyfork.dev/asset/hauler-cargo-trailer-3a0262), CC BY 4.0
+holo-billboard-frame.glb  Holo Billboard Frame by Polyfork (https://polyfork.dev/asset/holo-billboard-frame-96e583), CC BY 4.0
+hover-cargo-skiff.glb  Hover Cargo Skiff by Polyfork (https://polyfork.dev/asset/hover-cargo-skiff-cb5a8f), CC BY 4.0
+hover-scooter.glb  Hover Scooter by Polyfork (https://polyfork.dev/asset/hover-scooter-c9d027), CC BY 4.0
+kerb-run.glb  Kerb Run by Polyfork (https://polyfork.dev/asset/kerb-run-9e0a3c), CC BY 4.0
+landscape-boulder.glb  Landscape Boulder by Polyfork (https://polyfork.dev/asset/landscape-boulder-526f7f), CC BY 4.0
+maglev-guideway-run.glb  Maglev Guideway Run by Polyfork (https://polyfork.dev/asset/maglev-guideway-run-32118b), CC BY 4.0
+maintenance-technician.glb  Maintenance Technician by Polyfork (https://polyfork.dev/asset/maintenance-technician-4bcfb8), CC BY 4.0
+modular-freight-container.glb  Modular Freight Container by Polyfork (https://polyfork.dev/asset/modular-freight-container-412fd5), CC BY 4.0
+modular-planter-trough.glb  Modular Planter Trough by Polyfork (https://polyfork.dev/asset/modular-planter-trough-f7905e), CC BY 4.0
+monolith-office-tower.glb  Monolith Office Tower by Polyfork (https://polyfork.dev/asset/monolith-office-tower-422420), CC BY 4.0
+multi-wheel-crawler-loader.glb  Multi-Wheel Crawler Loader by Polyfork (https://polyfork.dev/asset/multi-wheel-crawler-loader-609591), CC BY 4.0
+neon-sign-pylon.glb  Neon Sign Pylon by Polyfork (https://polyfork.dev/asset/neon-sign-pylon-dcc03c), CC BY 4.0
+ornamental-grass-tuft.glb  Ornamental Grass Tuft by Polyfork (https://polyfork.dev/asset/ornamental-grass-tuft-e4156b), CC BY 4.0
+pastel-flowering-plant.glb  Pastel Flowering Plant by Polyfork (https://polyfork.dev/asset/pastel-flowering-plant-d16a03), CC BY 4.0
+plaza-stair-block.glb  Plaza Stair Block by Polyfork (https://polyfork.dev/asset/plaza-stair-block-65357e), CC BY 4.0
+plaza-water-basin.glb  Plaza Water Basin by Polyfork (https://polyfork.dev/asset/plaza-water-basin-8c8185), CC BY 4.0
+recycling-capsule-bin.glb  Recycling Capsule Bin by Polyfork (https://polyfork.dev/asset/recycling-capsule-bin-348f5b), CC BY 4.0
+retail-podium-arcade.glb  Retail Podium Arcade by Polyfork (https://polyfork.dev/asset/retail-podium-arcade-f76ee5), CC BY 4.0
+rooftop-antenna-mast.glb  Rooftop Antenna Mast by Polyfork (https://polyfork.dev/asset/rooftop-antenna-mast-6e4944), CC BY 4.0
+rooftop-chiller-unit.glb  Rooftop Chiller Unit by Polyfork (https://polyfork.dev/asset/rooftop-chiller-unit-3946e3), CC BY 4.0
+sculptural-canopy-tree.glb  Sculptural Canopy Tree by Polyfork (https://polyfork.dev/asset/sculptural-canopy-tree-681c3d), CC BY 4.0
+security-patrol-cruiser.glb  Security Patrol Cruiser by Polyfork (https://polyfork.dev/asset/security-patrol-cruiser-b40d27), CC BY 4.0
+service-deck-tile.glb  Service Deck Tile by Polyfork (https://polyfork.dev/asset/service-deck-tile-456dec), CC BY 4.0
+service-drone-bot.glb  Service Drone Bot by Polyfork (https://polyfork.dev/asset/service-drone-bot-3817e5), CC BY 4.0
+six-wheel-utility-truck.glb  Six-Wheel Utility Truck by Polyfork (https://polyfork.dev/asset/six-wheel-utility-truck-c8f599), CC BY 4.0
+sky-bridge-span.glb  Sky Bridge Span by Polyfork (https://polyfork.dev/asset/sky-bridge-span-26fcde), CC BY 4.0
+slab-apartment-block.glb  Slab Apartment Block by Polyfork (https://polyfork.dev/asset/slab-apartment-block-1b02a2), CC BY 4.0
+terrain.glb  Chrome Arcology Transit Terrain by Polyfork (https://polyfork.dev/asset/chrome-arcology-transit-terrain-6425be), CC BY 4.0
+traffic-signal-gantry.glb  Traffic Signal Gantry by Polyfork (https://polyfork.dev/asset/traffic-signal-gantry-e02176), CC BY 4.0
+transit-shelter-canopy.glb  Transit Shelter Canopy by Polyfork (https://polyfork.dev/asset/transit-shelter-canopy-16d66c), CC BY 4.0
+transit-station-module.glb  Transit Station Module by Polyfork (https://polyfork.dev/asset/transit-station-module-ffb6c1), CC BY 4.0
+two-lane-street-tile.glb  Two-Lane Street Tile by Polyfork (https://polyfork.dev/asset/two-lane-street-tile-8d1c14), CC BY 4.0
+utility-substation-cabinet.glb  Utility Substation Cabinet by Polyfork (https://polyfork.dev/asset/utility-substation-cabinet-1c903b), CC BY 4.0
+vehicle-charging-post.glb  Vehicle Charging Post by Polyfork (https://polyfork.dev/asset/vehicle-charging-post-45cbb8), CC BY 4.0
+vehicle-depot-hangar.glb  Vehicle Depot Hangar by Polyfork (https://polyfork.dev/asset/vehicle-depot-hangar-6adb80), CC BY 4.0
+vertical-farm-tower.glb  Vertical Farm Tower by Polyfork (https://polyfork.dev/asset/vertical-farm-tower-77d887), CC BY 4.0
+wheeled-city-coupe.glb  Hover City Coupe by Polyfork (https://polyfork.dev/asset/wheeled-city-coupe-5c381e), CC BY 4.0

@@ -25,7 +25,8 @@ export function figureStyle(id) {
   const h = hashId(id);
   return {
     color: PALETTE[h % PALETTE.length],
-    face: FACES[(h >> 3) % FACES.length],
+    // 注意用无符号移位：h≥2^31 时带符号 >> 会得到负数，FACES[-n] 为 undefined（历史 bug）
+    face: FACES[(h >>> 3) % FACES.length],
   };
 }
 

@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "checkJs": false,
+    "outDir": "dist-server",
+    "rootDir": ".",
+    "types": ["node"]
+  },
+  "include": [
+    "server/src",
+    "server/engine.js",
+    "server/world.js",
+    "server/charter.js",
+    "server/behavior.js",
+    "shared"
+  ],
+  "exclude": ["**/*.test.ts"]
+}

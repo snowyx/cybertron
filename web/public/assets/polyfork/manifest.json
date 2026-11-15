@@ -1,0 +1,68 @@
+{
+  "kit": "chrome-arcology-transit-kit-87a0e1",
+  "source": "https://polyfork.dev/kit/chrome-arcology-transit-kit-87a0e1",
+  "license": "Polyfork project license; mesh files also CC BY 4.0",
+  "modified": "Offline merge of authored layout, shell tint, night materials, remove ambient people; original proportions retained",
+  "sha256": "203b7f12b6e5f34a500e61a17f003062f4b577751c7f4a2764277d6be59daf7a",
+  "bytes": 3166416,
+  "bounds": {
+    "min": [
+      -60,
+      -0.3630000000000002,
+      -69.9353473356724
+    ],
+    "max": [
+      60.21927328593956,
+      54.922000009536745,
+      70.39464653730977
+    ]
+  },
+  "landmarks": {
+    "civic-dome-pavilion": [
+      [
+        2,
+        0.06,
+        -18
+      ]
+    ],
+    "vehicle-depot-hangar": [
+      [
+        40,
+        0.01,
+        -24
+      ]
+    ],
+    "transit-station-module": [
+      [
+        26,
+        0.01,
+        20
+      ],
+      [
+        36,
+        0.01,
+        20
+      ]
+    ],
+    "retail-podium-arcade": [
+      [
+        20,
+        0.01,
+        -46
+      ]
+    ],
+    "vertical-farm-tower": [
+      [
+        0.166,
+        0.01,
+        46.418
+      ],
+      [
+        -22.822,
+        0.01,
+        45.488
+      ]
+    ]
+  },
+  "compression": "EXT_meshopt_compression"
+}

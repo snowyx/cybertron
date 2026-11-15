@@ -5,7 +5,7 @@
 // 收到该 agent 的 agent_event 时在其家上方冒霓虹气泡。家节点 click → onEnterHome(agentId)。
 // 前端只渲染，不自算数值、不自判隔离（承 §21.5）。
 
-import { hashId } from './pixel-figure.js';
+import { hashId, figureStyle } from './pixel-figure.js';
 
 export class TownMap {
   /**
@@ -49,7 +49,11 @@ export class TownMap {
     node.className = 'home-node';
     node.style.left = `${a.home.x * 100}%`;
     node.style.top = `${a.home.y * 100}%`;
+    // agent 专属强调色（与事件流/像素小人同源派生）
+    const style = figureStyle(a.id);
+    node.style.setProperty('--agent-accent', style.color);
     node.innerHTML = `
+      <span class="agent-chip" aria-hidden="true">${style.face}</span>
       <canvas class="home-canvas" width="120" height="120" aria-hidden="true"></canvas>
       <span class="agent-name">${escapeHtml(a.name)}</span>
       <span class="agent-persona">${escapeHtml(a.persona)}</span>
@@ -101,11 +105,16 @@ export class TownMap {
   bubble(agentId, text) {
     const node = this._nodes.get(agentId);
     if (!node) return;
+    // 同一 agent 同屏只保留一个气泡（新事件覆盖旧的）
+    const old = this.root.querySelector(`.bubble[data-agent="${agentId}"]`);
+    if (old) old.remove();
     const b = document.createElement('div');
     b.className = 'bubble';
+    b.dataset.agent = agentId;
     b.style.left = node.style.left;
     b.style.top = node.style.top;
-    b.textContent = text;
+    const agent = this.store.getAgent(agentId);
+    b.innerHTML = `<span class="bubble-name">${escapeHtml(agent ? agent.name : '')}</span>${escapeHtml(text)}`;
     this.root.appendChild(b);
     setTimeout(() => b.remove(), 3000);
   }
